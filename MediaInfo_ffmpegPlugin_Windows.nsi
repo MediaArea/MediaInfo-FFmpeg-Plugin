@@ -9,8 +9,8 @@
 ; Some defines
 !define PRODUCT_NAME "MediaInfo FFmpeg Plugin"
 !define PRODUCT_PUBLISHER "MediaArea.net"
-!define PRODUCT_VERSION "8.0"
-!define PRODUCT_VERSION4 "${PRODUCT_VERSION}.0.0"
+!define PRODUCT_VERSION "9.0.1"
+!define PRODUCT_VERSION4 "${PRODUCT_VERSION}.0"
 !define PRODUCT_WEB_SITE "http://MediaArea.net/MediaInfo"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
@@ -32,7 +32,9 @@ SetCompressor /FINAL /SOLID lzma
 
 ; Uninstaller signing
 !ifdef EXPORT_UNINST
+!ifndef PORTABLE
 !uninstfinalize 'copy /Y "%1" "MediaInfo_FFmpegPlugin_${PRODUCT_VERSION}_Windows-uninst.exe"'
+!endif
 !endif
 
 ; Installer pages
@@ -87,7 +89,6 @@ SectionEnd
 
 Section -Post
   !ifndef PORTABLE
-  Section -Post
   !if /FileExists "MediaInfo_FFmpegPlugin_${PRODUCT_VERSION}_Windows-uninst.exe"
     File "/oname=$INSTDIR\ffmpeg_plugin_uninst.exe" "MediaInfo_FFmpegPlugin_${PRODUCT_VERSION}_Windows-uninst.exe"
   !else
